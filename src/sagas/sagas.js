@@ -1,4 +1,4 @@
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, take, all } from 'redux-saga/effects';
 import AviaService from './../services/avia-service';
 import { fetchSucceeded, fetchFailed } from './../actions';
 
@@ -23,6 +23,16 @@ function* fetchTickets() {
   }
 }
 
+function* log() {
+  while (true) {
+    const action = yield take('*');
+    console.log(action);
+  }
+}
+
 export default function* rootSaga() {
-  yield fetchTickets();
+  yield all([
+    fetchTickets(),
+    log()
+  ]);
 }

@@ -12,7 +12,15 @@ const fetchFailed = () => {
   }
 };
 
+const changeTransferCount = (count) => {
+  return {
+    type: 'CHANGE_TRANSFER_COUNT',
+    payload: count
+  }
+};
+
 export {
   fetchSucceeded,
-  fetchFailed
+  fetchFailed,
+  changeTransferCount
 }
