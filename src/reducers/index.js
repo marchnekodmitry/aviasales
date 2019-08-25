@@ -1,3 +1,5 @@
+import { findKeyOfTrueField } from '../utils';
+
 const initialState = {
   tickets: [],
   transferCount: {
@@ -7,7 +9,10 @@ const initialState = {
     2: false,
     3: false
   },
-  sortType: 'cheap', // cheap or fast
+  sortType: {  // only 1 can be true
+    cheap: true,
+    fast: false
+  },
   loading: false,
   error: false
 };
@@ -20,6 +25,15 @@ const reducer = (state = initialState, action) => {
         transferCount: {
           ...state.transferCount,
           [action.payload]: !state.transferCount[action.payload]
+        }
+      };
+    case 'CHANGE_SORT_TYPE':
+      return {
+        ...state,
+        sortType: {
+          ...state.sortType,
+          [findKeyOfTrueField(state.sortType)]: false,
+          [action.payload]: true
         }
       };
     default:

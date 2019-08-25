@@ -19,8 +19,16 @@ const changeTransferCount = (count) => {
   }
 };
 
+const changeSortType = (type) => {
+  return {
+    type: 'CHANGE_SORT_TYPE',
+    payload: type
+  }
+};
+
 export {
   fetchSucceeded,
   fetchFailed,
-  changeTransferCount
+  changeTransferCount,
+  changeSortType
 }
