@@ -32,8 +32,10 @@ const sortTypeHandler = (e) => {
   return changeSortType(e.target.getAttribute('data-sort'))
 };
 
-const mapStateToProps = ({ sortType }) => {
-  return { sortType }
+const mapStateToProps = ({ sort }) => {
+  return {
+    sortType: sort.sortType
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {

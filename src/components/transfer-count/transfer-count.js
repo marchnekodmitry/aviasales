@@ -37,9 +37,9 @@ const transferCountHandler = (e) => {
   return changeTransferCount(e.target.getAttribute('data-count'))
 };
 
-const mapStateToProps = ({ transferCount }) => {
+const mapStateToProps = ({ sort }) => {
   return {
-    transferCount
+    transferCount: sort.transferCount
   }
 };
 
