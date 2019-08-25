@@ -1,4 +1,4 @@
-import { findKeyOfTrueField } from '../utils';
+import { findKeysOfTrueField } from '../utils';
 
 const initialState = {
   tickets: [],
@@ -39,10 +39,28 @@ const reducer = (state = initialState, action) => {
           ...state.sort,
           sortType: {
             ...state.sort.sortType,
-            [findKeyOfTrueField(state.sort.sortType)]: false,
+            [findKeysOfTrueField(state.sort.sortType)]: false,
             [action.payload]: true
           }
         }
+      };
+    case 'TICKETS_FETCH_REQUESTED':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'TICKETS_FETCH_SUCCEEDED':
+      return {
+        ...state,
+        tickets: action.payload,
+        loading: false
+      };
+    case 'TICKETS_FETCH_FAILED':
+      return {
+        ...state,
+        tickets: action.payload,
+        loading: false,
+        error: true
       };
     default:
       return state;

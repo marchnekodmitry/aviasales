@@ -1,6 +1,6 @@
 import { call, put, take, all } from 'redux-saga/effects';
 import AviaService from './../services/avia-service';
-import { fetchSucceeded, fetchFailed } from './../actions';
+import { fetchTicketsSucceeded, fetchTicketsFailed } from './../actions';
 
 function* fetchTickets() {
   while (true) {
@@ -16,9 +16,9 @@ function* fetchTickets() {
         tickets = [...tickets, ...ticketsPack];
       }
 
-      yield put(fetchSucceeded(tickets));
+      yield put(fetchTicketsSucceeded(tickets));
     } catch (e) {
-      yield put(fetchFailed(tickets));
+      yield put(fetchTicketsFailed(tickets));
     }
   }
 }

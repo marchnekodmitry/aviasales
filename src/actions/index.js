@@ -1,14 +1,20 @@
-const fetchSucceeded = (tickets) => {
+const fetchTicketsRequest = () => {
+  return {
+    type: 'TICKETS_FETCH_REQUESTED'
+  }
+};
+
+const fetchTicketsSucceeded = (tickets) => {
   return {
     type: 'TICKETS_FETCH_SUCCEEDED',
     payload: tickets
   }
 };
 
-const fetchFailed = () => {
+const fetchTicketsFailed = (tickets) => {
   return {
     type: 'TICKETS_FETCH_FAILED',
-    error: true
+    payload: tickets
   }
 };
 
@@ -27,8 +33,9 @@ const changeSortType = (type) => {
 };
 
 export {
-  fetchSucceeded,
-  fetchFailed,
+  fetchTicketsRequest,
+  fetchTicketsSucceeded,
+  fetchTicketsFailed,
   changeTransferCount,
   changeSortType
 }
