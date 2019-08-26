@@ -9,7 +9,7 @@ const App = () => {
     <Fragment>
       <TransferCount/>
       <SortType/>
-
+      <TicketList/>
     </Fragment>
   )
 };

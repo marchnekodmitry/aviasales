@@ -12,11 +12,12 @@ class AviaService {
     return await res.json();
   }
 
-  getSearchId() {
-    this.searchId = this.getResource('search').searchId;
-  }
+  getSearchId = async () => {
+    const searchId = await this.getResource('search');
+    this.searchId = searchId.searchId;
+  };
 
-  getTickets() {
+  getTickets = () => {
     return this.getResource(`tickets?searchId=${this.searchId}`);
   }
 }

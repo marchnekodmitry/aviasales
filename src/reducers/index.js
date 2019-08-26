@@ -1,4 +1,4 @@
-import { findKeysOfTrueField } from '../utils';
+import { findKeysOfTrueField, generateHashForEachTicket } from '../utils';
 
 const initialState = {
   tickets: [],
@@ -52,15 +52,15 @@ const reducer = (state = initialState, action) => {
     case 'TICKETS_FETCH_SUCCEEDED':
       return {
         ...state,
-        tickets: action.payload,
+        tickets: generateHashForEachTicket(action.payload),
         loading: false
       };
     case 'TICKETS_FETCH_FAILED':
       return {
         ...state,
-        tickets: action.payload,
+        tickets: generateHashForEachTicket(action.payload),
         loading: false,
-        error: true
+        error: false // ===========================================================
       };
     default:
       return state;

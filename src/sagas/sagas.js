@@ -1,24 +1,49 @@
 import { call, put, take, all } from 'redux-saga/effects';
 import AviaService from './../services/avia-service';
 import { fetchTicketsSucceeded, fetchTicketsFailed } from './../actions';
+import { mergeWithTickets } from '../utils';
+
+function* getTickets() {
+  let received = false,
+      tickets = [],
+      error = false;
+
+  try {
+    while (!received) {
+      let {tickets: ticketsPack, stop} = yield call(AviaService.getTickets);
+      received = stop;
+      tickets = [...tickets, ...ticketsPack];
+    }
+  } catch (e) {
+    error = true;
+  } finally {
+    return {
+      tickets,
+      error
+    }
+  }
+}
 
 function* fetchTickets() {
   while (true) {
     yield take('TICKETS_FETCH_REQUESTED');
-    let tickets = [];
+    let result = {},
+        attempts = 0;
+
     try {
       yield call(AviaService.getSearchId);
-      let received = false;
 
-      while (!received) {
-        let { tickets: ticketsPack, stop } = yield call(AviaService.getTickets);
-        received = stop;
-        tickets = [...tickets, ...ticketsPack];
-      }
+      do {
+        const response = yield getTickets();
+        result = mergeWithTickets(result, response);
+        attempts++
+      } while (result.error && attempts < 5);
 
-      yield put(fetchTicketsSucceeded(tickets));
+      result.error ?
+        yield put(fetchTicketsFailed(result.tickets)) :
+        yield put(fetchTicketsSucceeded(result.tickets));
     } catch (e) {
-      yield put(fetchTicketsFailed(tickets));
+      console.error(e);
     }
   }
 }
