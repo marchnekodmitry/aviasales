@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { createSelector } from 'reselect';
-import hash from 'object-hash';
+import hash from 'hash-sum';
 
 const findKeysOfTrueField = (obj) => {
   return R.filter(
@@ -53,9 +53,46 @@ const mergeWithTickets = R.mergeWithKey(
   (key, left, right) => key === 'tickets' ? R.concat(left, right) : right
 );
 
+const getTransferString = (stops) => {
+  const transferCount = stops.length;
+  switch (transferCount) {
+    case 1: return `${transferCount} пересадка`;
+    case 2:
+    case 3:
+    case 4: return `${transferCount} пересадки`;
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 0: return `${transferCount} пересадок`;
+    default: return `${transferCount} пересадка`;
+  }
+};
+
+const timeConvert = (mins) => {
+  return `${Math.floor(mins / 60)}ч ${mins % 60}м`;
+};
+
+const dateToDepartureArrivalConvert = (date, duration) => {
+  const departureTime = /T\d\d:\d\d/.exec(date)[0].slice(1);
+  const timeMins = parseInt(departureTime.slice(3));
+  const timeHours = parseInt(departureTime.slice(0, 2));
+  const totalMins = timeMins + timeHours * 60 + duration;
+  const arrivalHours = `0${(Math.floor(totalMins / 60) % 24)}`.slice(-2);
+  const arrivalMins = `0${totalMins % 60}`.slice(-2);
+  return `${departureTime} - ${arrivalHours}:${arrivalMins}`
+};
+
+const getTransferCities = R.join(', ');
+
 export {
   findKeysOfTrueField,
   sortTickets,
   generateHashForEachTicket,
-  mergeWithTickets
+  mergeWithTickets,
+  getTransferString,
+  timeConvert,
+  getTransferCities,
+  dateToDepartureArrivalConvert
 }
