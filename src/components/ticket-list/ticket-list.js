@@ -8,9 +8,9 @@ import { sortTickets } from './../../utils';
 const TicketList = ({ tickets }) => {
   return (
     <ul>
-      {
-        tickets.map(ticket => <TicketListItem ticket={ticket}/>)
-      }
+      {tickets.slice(0, 5).map(ticket => {
+        return <TicketListItem ticket={ticket} key={ticket.hash}/>
+      })}
     </ul>
   )
 };
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchTicketsRequest: dispatch(fetchTicketsRequest())
+    fetchTicketsRequest: () => dispatch(fetchTicketsRequest())
   }
 };
 
