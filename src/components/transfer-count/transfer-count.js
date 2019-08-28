@@ -4,32 +4,41 @@ import { connect } from 'react-redux';
 import { changeTransferCount } from './../../actions';
 
 const TransferCount = ({ transferCount, transferCountHandler }) => {
+  const TransferCountItem = ({ dataCount, checked, children }) => {
+    return (
+      <li>
+        <label>
+          <input type='checkbox'
+                 data-count={dataCount}
+                 onChange={(e) => transferCountHandler(e)}
+                 checked={checked}/>
+          {children}
+        </label>
+      </li>
+    );
+  };
+
   return (
-    <div>
-      <p>Количество пересадок</p>
+    <StyledWrapper>
+      <p className='title'>Количество пересадок</p>
       <ul>
-        <li><input type='checkbox'
-                   data-count='all'
-                   onChange={ (e) => transferCountHandler(e) }
-                   checked={ transferCount.all }/></li>
-        <li><input type='checkbox'
-                   data-count='0'
-                   onChange={ (e) => transferCountHandler(e) }
-                   checked={ transferCount[0] }/></li>
-        <li><input type='checkbox'
-                   data-count='1'
-                   onChange={ (e) => transferCountHandler(e) }
-                   checked={ transferCount[1] }/></li>
-        <li><input type='checkbox'
-                   data-count='2'
-                   onChange={ (e) => transferCountHandler(e) }
-                   checked={ transferCount[2] }/></li>
-        <li><input type='checkbox'
-                   data-count='3'
-                   onChange={ (e) => transferCountHandler(e) }
-                   checked={ transferCount[3] }/></li>
+        <TransferCountItem dataCount='all' checked={transferCount.all}>
+          Все
+        </TransferCountItem>
+        <TransferCountItem dataCount='0' checked={transferCount[0]}>
+          0 пересадок
+        </TransferCountItem>
+        <TransferCountItem dataCount='1' checked={transferCount[1]}>
+          1 пересадка
+        </TransferCountItem>
+        <TransferCountItem dataCount='2' checked={transferCount[2]}>
+          2 пересадки
+        </TransferCountItem>
+        <TransferCountItem dataCount='3' checked={transferCount[3]}>
+          3 пересадки
+        </TransferCountItem>
       </ul>
-    </div>
+    </StyledWrapper>
   )
 };
 
