@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { changeTransferCount } from './../../actions';
 
 const StyledWrapper = styled.div`
-  padding: 20px;
+  padding: 20px 0 10px 0;
+  background-color: #FFFFFF;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   
@@ -20,6 +21,7 @@ const StyledWrapper = styled.div`
 
 const StyledTitle = styled.p`
   margin: 0 0 10px 0;
+  padding: 0 20px;
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
@@ -42,9 +44,7 @@ const StyledList = styled.ul`
   line-height: 20px;
 `;
 
-const StyledItem = styled.li`
-  padding: 10px 0;
-  
+const StyledItem = styled.li`    
   :hover {
     background: #F1FCFF;
   }
@@ -53,6 +53,7 @@ const StyledItem = styled.li`
 const StyledLabel = styled.label`
   display: flex;
   align-items: center;
+  padding: 10px 20px;
   cursor: pointer;
 `;
 
