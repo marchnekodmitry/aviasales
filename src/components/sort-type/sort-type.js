@@ -6,6 +6,7 @@ import { changeSortType } from './../../actions';
 
 const StyledWrapper = styled.div`
   display: flex;
+  margin-bottom: 20px;
   font-family: Open Sans;
   font-style: normal;
   font-weight: 600;
