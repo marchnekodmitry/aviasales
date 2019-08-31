@@ -48,16 +48,8 @@ function* fetchTickets() {
   }
 }
 
-function* log() {
-  while (true) {
-    const action = yield take('*');
-    console.log(action);
-  }
-}
-
 export default function* rootSaga() {
   yield all([
-    fetchTickets(),
-    log()
+    fetchTickets()
   ]);
 }
