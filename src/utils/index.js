@@ -86,6 +86,11 @@ const dateToDepartureArrivalConvert = (date, duration) => {
 
 const getTransferCities = R.join(', ');
 
+const convertPrice = (price) => {
+  const string = R.toString(price);
+  return `${R.slice(0, -3, string)} ${R.slice(-3, Infinity, string)} Р`;
+};
+
 export {
   findKeysOfTrueField,
   sortTickets,
@@ -94,5 +99,6 @@ export {
   getTransferString,
   timeConvert,
   getTransferCities,
-  dateToDepartureArrivalConvert
+  dateToDepartureArrivalConvert,
+  convertPrice
 }
