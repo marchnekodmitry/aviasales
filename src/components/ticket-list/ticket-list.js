@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import TicketListItem from './../ticket-list-item';
 import { fetchTicketsRequest } from './../../actions';
 import { sortTickets } from './../../utils';
+import LoadingBoundary from '../loading-boundary';
+import ErrorBoundary from "../error-boundary/error-boundary";
+
+const StyledList = styled.ul`
+  min-height: 180px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+`;
 
 const TicketList = ({ tickets }) => {
   return (
-    <ul>
+    <StyledList>
       {tickets.slice(0, 5).map(ticket => {
         return <TicketListItem ticket={ticket} key={ticket.hash}/>
       })}
-    </ul>
+    </StyledList>
   )
 };
 
@@ -21,17 +31,23 @@ class TicketListEnhancer extends Component {
   }
 
   render() {
-    const { tickets } = this.props;
+    const { tickets, loading, error } = this.props;
 
     return (
-      <TicketList tickets={tickets}/>
+      <ErrorBoundary error={error} requestFunc={this.props.fetchTicketsRequest}>
+        <LoadingBoundary loading={loading}>
+          <TicketList tickets={tickets}/>
+        </LoadingBoundary>
+      </ErrorBoundary>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    tickets: sortTickets(state)
+    tickets: sortTickets(state),
+    loading: state.loading,
+    error: state.error
   }
 };
 
