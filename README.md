@@ -1,3 +1,3 @@
 npm start to run development
 
-https://nogandalfgrey.github.io/aviasales/
+You can see project at https://nogandalfgrey.github.io/aviasales/
